@@ -253,7 +253,9 @@
                 const response = await fetch(url);
                 const data = await response.json();
                 results = results.concat(data.results);
-                url = data.pagination.links.next; // Próxima página, se houver
+                url = data.pagination.links.next
+                    ? data.pagination.links.next.replace('http://', 'https://')
+                    : null; // Próxima página, se houver
             }
             return results;
         }
