@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vereadores em Exercício - Câmara Municipal de Coronel Barros</title>
+    <!-- 
+        ESTILO DA PÁGINA (CSS)
+        Este código foi desenvolvido para ser usado como um embed (iframe) em sites de Câmaras Municipais.
+        O design utiliza tons de verde, fontes escuras para fundo branco e fotos na proporção 3:4.
+    -->
+    <style>
+        :root {
+            /* PALETA DE CORES - Altere aqui para as cores da sua Câmara */
+            --primary-green: #1b4332; 
+            --secondary-green: #2d6a4f;
+            --accent-green: #40916c;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-color: #1a1a1a; 
+            --text-muted: #4a4a4a;
+            --gold: #b8860b; /* Cor de destaque para o Presidente */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: transparent; /* Fundo transparente para se adaptar ao site pai */
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-green);
+            border-bottom: 3px solid var(--secondary-green);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            width: 100%;
+            text-align: center;
+            margin: 40px 0 25px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--secondary-green);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-green);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        /* GRID DE VEREADORES */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 30px;
+            width: 100%;
+            justify-items: center;
+        }
+
+        /* LAYOUT DA MESA DIRETORA */
+        #mesa-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        /* ESTILO DO CARD */
+        .card {
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 240px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            border-color: var(--secondary-green);
+        }
+
+        /* CONTAINER DA FOTO (PROPORÇÃO 3:4) */
+        .photo-container {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 3px solid #f0f0f0;
+            background: #f8f8f8;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.08);
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* SELO DE CARGO (MESA DIRETORA) */
+        .badge {
+            position: absolute;
+            top: -12px;
+            background: var(--secondary-green);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* DESTAQUE DO PRESIDENTE */
+        .president {
+            border: 2px solid var(--gold) !important;
+            background: linear-gradient(to bottom, #ffffff, #fffdf5);
+        }
+        
+        .president .badge {
+            background: var(--gold);
+        }
+
+        .president .photo-container {
+            border-color: var(--gold);
+        }
+
+        /* MENSAGEM DE CARREGAMENTO */
+        #loading {
+            text-align: center;
+            padding: 100px;
+            font-size: 1.2rem;
+            color: var(--secondary-green);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .grid { grid-template-columns: 1fr; }
+            .card { width: 85%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VEREADORES EM EXERCÍCIO</h1>
+        </header>
+
+        <div id="loading">Conectando ao sistema SAPL...</div>
+        
+        <div id="content" style="display: none; width: 100%;">
+            <div class="section-title">Mesa Diretora</div>
+            <div id="mesa-grid"></div>
+
+            <div class="section-title">Demais Vereadores</div>
+            <div id="vereadores-grid" class="grid"></div>
+        </div>
+    </div>
+
+    <script>
+        /* 
+            CONFIGURAÇÕES DA API
+            Altere a URL base para a do SAPL da sua Câmara Municipal.
+        */
+        const API_BASE = 'https://sapl.coronelbarros.rs.leg.br/api';
+        
+        /* 
+            MAPEAMENTO DA MESA DIRETORA
+            Os IDs referem-se ao ID do Parlamentar no sistema SAPL.
+            Para descobrir o ID, acesse o perfil do vereador no SAPL e veja o número no final da URL.
+        */
+        const MESA_CARGOS = {
+            1: 'Presidente',      // Lucas Jair Wottrich
+            7: 'Vice-Presidente', // Cristiana dos Santos Arnt
+            2: 'Secretário'       // César Becker
+        };
+
+        /**
+         * Função para buscar todas as páginas de um endpoint da API SAPL.
+         * Necessário pois alguns dados (como partidos) podem estar em páginas seguintes.
+         */
+        async function fetchAllPages(endpoint) {
+            let results = [];
+            let url = `${API_BASE}${endpoint}`;
+            
+            while (url) {
+                const response = await fetch(url);
+                const data = await response.json();
+                results = results.concat(data.results);
+                url = data.pagination.links.next; // Próxima página, se houver
+            }
+            return results;
+        }
+
+        async function fetchData() {
+            try {
+                // Busca dados em paralelo para otimizar o carregamento
+                const [parlamentares, filiacoes, partidos] = await Promise.all([
+                    fetchAllPages('/parlamentares/parlamentar/'),
+                    fetchAllPages('/parlamentares/filiacao/'),
+                    fetchAllPages('/parlamentares/partido/')
+                ]);
+
+                render(parlamentares, filiacoes, partidos);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                document.getElementById('loading').innerHTML = 'Erro ao conectar com o sistema SAPL.<br><small>Verifique se o endereço da API está correto.</small>';
+            }
+        }
+
+        function render(parlamentares, filiacoes, partidos) {
+            const mesaGrid = document.getElementById('mesa-grid');
+            const vereadoresGrid = document.getElementById('vereadores-grid');
+            
+            mesaGrid.innerHTML = '';
+            vereadoresGrid.innerHTML = '';
+
+            // Processa a lista de parlamentares cruzando com dados de partido e cargo
+            const listaProcessada = parlamentares.map(p => {
+                // Encontra a filiação ativa (onde data_desfiliacao é nulo)
+                const filiacao = filiacoes.find(f => f.parlamentar === p.id && f.data_desfiliacao === null);
+                let partidoSigla = 'Sem Partido';
+                
+                if (filiacao) {
+                    // Busca o nome/sigla do partido pelo ID da filiação
+                    const partido = partidos.find(part => part.id === filiacao.partido);
+                    partidoSigla = partido ? partido.sigla : 'Sem Partido';
+                }
+
+                return {
+                    ...p,
+                    partidoSigla,
+                    cargo: MESA_CARGOS[p.id] || null
+                };
+            });
+
+            // 1. Renderiza a Mesa Diretora na ordem correta
+            const ordemMesa = ['Presidente', 'Vice-Presidente', 'Secretário'];
+            ordemMesa.forEach(cargoNome => {
+                const p = listaProcessada.find(item => item.cargo === cargoNome);
+                if (p) {
+                    mesaGrid.innerHTML += createCard(p);
+                }
+            });
+
+            // 2. Renderiza os demais vereadores em ordem alfabética
+            const demais = listaProcessada
+                .filter(p => !p.cargo)
+                .sort((a, b) => a.nome_parlamentar.localeCompare(b.nome_parlamentar));
+
+            demais.forEach(p => {
+                vereadoresGrid.innerHTML += createCard(p);
+            });
+
+            // Esconde o loading e mostra o conteúdo
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }
+
+        /**
+         * Gera o HTML de um card de parlamentar.
+         */
+        function createCard(p) {
+            const isPresident = p.cargo === 'Presidente';
+            // Link para o perfil oficial no SAPL
+            const profileLink = `https://sapl.coronelbarros.rs.leg.br/parlamentar/${p.id}`;
+            
+            return `
+                <a href="${profileLink}" target="_blank" class="card ${isPresident ? 'president' : ''}">
+                    ${p.cargo ? `<span class="badge">${p.cargo}</span>` : ''}
+                    <div class="photo-container">
+                        <img src="${p.fotografia}" alt="${p.nome_parlamentar}" onerror="this.src='https://via.placeholder.com/300x400?text=Sem+Foto'">
+                    </div>
+                    <h3>${p.nome_parlamentar}</h3>
+                    <p>${p.partidoSigla}</p>
+                </a>
+            `;
+        }
+
+        // Inicia a busca de dados ao carregar a página
+        fetchData();
+    </script>
+</body>
+</html>
