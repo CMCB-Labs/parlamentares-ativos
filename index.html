@@ -6,12 +6,11 @@
     <title>Vereadores em Exercício - Câmara Municipal de Coronel Barros</title>
     <!-- 
         ESTILO DA PÁGINA (CSS)
-        Este código foi desenvolvido para ser usado tanto diretamente quanto como embed (iframe).
-        O design utiliza tons de verde oficiais da Câmara, fontes escuras para fundo claro e fotos na proporção 3:4.
+        Desenvolvido para uso direto ou embed (iframe).
+        Design moderno, paleta de cores oficial da Câmara Municipal de Coronel Barros/RS.
     -->
     <style>
         :root {
-            /* Paleta de Cores Oficial - Câmara de Coronel Barros */
             --primary-green: #325a1e; 
             --secondary-green: #5c854b;
             --accent-green: #3ebb51;
@@ -19,7 +18,8 @@
             --glass-border: rgba(0, 0, 0, 0.08);
             --text-color: #1a1a1a; 
             --text-muted: #555555;
-            --gold: #b8860b; /* Destaque para a Presidência */
+            --gold: #b8860b;
+            --gold-light: #fffdf2;
         }
 
         body {
@@ -55,7 +55,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             width: 100%;
         }
 
@@ -91,7 +91,18 @@
             border-radius: 2px;
         }
 
-        /* GRID DE VEREADORES */
+        /* GRID DA MESA DIRETORA */
+        #mesa-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center; /* Alinha verticalmente ao centro para valorizar o card maior */
+            gap: 25px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* GRID DE DEMAIS VEREADORES */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -100,16 +111,7 @@
             justify-items: center;
         }
 
-        /* LAYOUT DA MESA DIRETORA */
-        #mesa-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            width: 100%;
-        }
-
-        /* ESTILO DO CARD */
+        /* ESTILO DO CARD PADRÃO */
         .card {
             background: #ffffff;
             border: 1px solid var(--glass-border);
@@ -172,7 +174,7 @@
             font-weight: 600;
         }
 
-        /* SELO DE CARGO (MESA DIRETORA) */
+        /* SELO DE CARGO */
         .badge {
             position: absolute;
             top: -10px;
@@ -188,18 +190,46 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.15);
         }
 
-        /* DESTAQUE DO PRESIDENTE */
-        .president {
-            border: 2px solid var(--gold) !important;
-            background: linear-gradient(to bottom, #ffffff, #fffdf5);
+        /* ORDENAÇÃO NA MESA DIRETORA (DESKTOP) */
+        /* Ordem: 1. Vice-Presidente | 2. Presidente (NO MEIO) | 3. Secretário */
+        .card-vice {
+            order: 1;
         }
         
-        .president .badge {
-            background: var(--gold);
+        .card-secretario {
+            order: 3;
         }
 
-        .president .photo-container {
-            border-color: var(--gold);
+        /* DESTAQUE DO PRESIDENTE (NO MEIO E MAIOR) */
+        .card-presidente {
+            order: 2;
+            width: 265px !important;
+            padding: 24px 18px !important;
+            border: 2px solid var(--gold) !important;
+            background: linear-gradient(to bottom, #ffffff, var(--gold-light)) !important;
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.2) !important;
+            z-index: 3;
+        }
+        
+        .card-presidente:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(184, 134, 11, 0.28) !important;
+        }
+
+        .card-presidente .badge {
+            background: var(--gold) !important;
+            font-size: 0.82rem !important;
+            padding: 6px 16px !important;
+            top: -12px !important;
+            letter-spacing: 0.8px;
+        }
+
+        .card-presidente .photo-container {
+            border-color: var(--gold) !important;
+        }
+
+        .card-presidente h3 {
+            font-size: 1.25rem !important;
         }
 
         /* MENSAGEM DE CARREGAMENTO */
@@ -211,12 +241,33 @@
             font-weight: 600;
         }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 600px) {
+        /* RESPONSIVIDADE (MOBILE) */
+        @media (max-width: 768px) {
             h1 { font-size: 1.5rem; }
             .grid { grid-template-columns: 1fr; }
             .card { width: 100%; max-width: 280px; }
-            #mesa-grid { flex-direction: column; align-items: center; }
+            
+            /* No celular, a Mesa fica em coluna e o Presidente aparece PRIMEIRO */
+            #mesa-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .card-presidente {
+                order: 1 !important; /* Primeiro no mobile */
+                width: 100% !important;
+                max-width: 290px !important;
+            }
+            .card-vice {
+                order: 2 !important; /* Segundo no mobile */
+                width: 100% !important;
+                max-width: 280px !important;
+            }
+            .card-secretario {
+                order: 3 !important; /* Terceiro no mobile */
+                width: 100% !important;
+                max-width: 280px !important;
+            }
         }
     </style>
 </head>
@@ -238,22 +289,15 @@
     </div>
 
     <script>
-        /* 
-            CONFIGURAÇÕES DA API
-            Base URL do SAPL da Câmara Municipal de Coronel Barros
-        */
         const API_BASE = 'https://sapl.coronelbarros.rs.leg.br/api';
         
-        /* 
-            Mapeamento de contingência para Mesa Diretora
-        */
+        // Mapeamento de contingência para Mesa Diretora
         const MESA_CARGOS_FALLBACK = {
             1: 'Presidente',      // Lucas Jair Wottrich
             7: 'Vice-Presidente', // Cristiana dos Santos Arnt
             2: 'Secretário(a)'    // César Becker
         };
 
-        // Detecta parâmetros de embed
         function checkEmbedMode() {
             const urlParams = new URLSearchParams(window.location.search);
             const isEmbed = urlParams.get('embed') === '1' || urlParams.get('embed') === 'true' || window.self !== window.top;
@@ -267,7 +311,6 @@
             }
         }
 
-        // Notifica janela pai sobre alteração de altura
         function notifyParentResize() {
             if (window.self !== window.top) {
                 const height = Math.max(
@@ -287,9 +330,6 @@
             } catch (e) {}
         }
 
-        /**
-         * Busca todas as páginas de um endpoint da API SAPL.
-         */
         async function fetchAllPages(endpoint) {
             let results = [];
             let url = `${API_BASE}${endpoint}`;
@@ -306,10 +346,25 @@
             return results;
         }
 
+        // Identifica de forma segura o tipo de cargo sem colisão de substrings
+        function getCargoType(cargo) {
+            if (!cargo) return null;
+            const norm = cargo.toLowerCase().trim();
+            if (norm.includes('vice')) {
+                return 'vice';
+            }
+            if (norm.includes('presidente')) {
+                return 'presidente';
+            }
+            if (norm.includes('secret')) {
+                return 'secretario';
+            }
+            return null;
+        }
+
         async function fetchData() {
             checkEmbedMode();
             try {
-                // Busca parlamentares ativos, filiações, partidos e mesa diretora
                 const [parlamentares, filiacoes, partidos, compMesa, cargosMesa] = await Promise.all([
                     fetchAllPages('/parlamentares/parlamentar/?ativo=True'),
                     fetchAllPages('/parlamentares/filiacao/'),
@@ -318,7 +373,7 @@
                     fetchAllPages('/parlamentares/cargomesa/').catch(() => [])
                 ]);
 
-                // Filtro estrito: apenas parlamentares onde 'ativo' é explicitamente verdadeiro
+                // Filtro estrito: apenas parlamentares ativos
                 const ativos = parlamentares.filter(p => p.ativo === true || p.ativo === 1 || p.ativo === 'True' || p.ativo === 'true');
 
                 // Mapeia cargos da Mesa Diretora de forma dinâmica
@@ -346,9 +401,7 @@
             mesaGrid.innerHTML = '';
             vereadoresGrid.innerHTML = '';
 
-            // Processa lista cruzando com partido e cargo
             const listaProcessada = parlamentares.map(p => {
-                // Encontra a filiação ativa (onde data_desfiliacao é nulo)
                 const filiacao = filiacoes.find(f => f.parlamentar === p.id && f.data_desfiliacao === null);
                 let partidoSigla = 'Sem Partido';
                 
@@ -357,53 +410,69 @@
                     partidoSigla = partido ? partido.sigla : 'Sem Partido';
                 }
 
+                const cargo = cargosMap[p.id] || null;
+                const cargoType = getCargoType(cargo);
+
                 return {
                     ...p,
                     partidoSigla,
-                    cargo: cargosMap[p.id] || null
+                    cargo,
+                    cargoType
                 };
             });
 
-            // 1. Renderiza a Mesa Diretora (Presidente primeiro, depois Vice, depois Secretário)
-            const ordemMesa = ['Presidente', 'Vice-Presidente', 'Secretário', 'Secretário(a)'];
-            const mesaRenderizados = new Set();
+            // 1. Identifica os membros da Mesa Diretora
+            const pres = listaProcessada.find(p => p.cargoType === 'presidente');
+            const vice = listaProcessada.find(p => p.cargoType === 'vice');
+            const sec = listaProcessada.find(p => p.cargoType === 'secretario');
 
-            ordemMesa.forEach(cargoNome => {
-                const p = listaProcessada.find(item => item.cargo && item.cargo.toLowerCase().includes(cargoNome.toLowerCase().replace('(a)', '')));
-                if (p && !mesaRenderizados.has(p.id)) {
-                    mesaGrid.innerHTML += createCard(p);
-                    mesaRenderizados.add(p.id);
-                }
-            });
+            const mesaIds = new Set();
 
-            // 2. Demais vereadores ativos (sem cargo na mesa) em ordem alfabética
+            // Adiciona na Mesa: Vice-Presidente, Presidente (no meio), Secretário
+            if (vice) {
+                mesaGrid.innerHTML += createCard(vice, 'vice');
+                mesaIds.add(vice.id);
+            }
+            if (pres) {
+                mesaGrid.innerHTML += createCard(pres, 'presidente');
+                mesaIds.add(pres.id);
+            }
+            if (sec) {
+                mesaGrid.innerHTML += createCard(sec, 'secretario');
+                mesaIds.add(sec.id);
+            }
+
+            // 2. Demais vereadores ativos (ordem alfabética)
             const demais = listaProcessada
-                .filter(p => !mesaRenderizados.has(p.id))
+                .filter(p => !mesaIds.has(p.id))
                 .sort((a, b) => a.nome_parlamentar.localeCompare(b.nome_parlamentar, 'pt-BR'));
 
             demais.forEach(p => {
-                vereadoresGrid.innerHTML += createCard(p);
+                vereadoresGrid.innerHTML += createCard(p, null);
             });
 
-            // Esconde o loading e mostra o conteúdo
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
 
-            // Notifica altura calculada
             notifyParentResize();
-            setTimeout(notifyParentResize, 300);
+            setTimeout(notifyParentResize, 350);
         }
 
-        /**
-         * Gera o HTML de um card de parlamentar.
-         */
-        function createCard(p) {
-            const isPresident = p.cargo && p.cargo.toLowerCase().includes('presidente') && !p.cargo.toLowerCase().includes('vice');
+        function createCard(p, cargoType) {
+            let cardClasses = 'card';
+            if (cargoType === 'presidente') {
+                cardClasses += ' card-presidente';
+            } else if (cargoType === 'vice') {
+                cardClasses += ' card-vice';
+            } else if (cargoType === 'secretario') {
+                cardClasses += ' card-secretario';
+            }
+
             const profileLink = `https://sapl.coronelbarros.rs.leg.br/parlamentar/${p.id}`;
             const photoUrl = p.fotografia ? p.fotografia.replace('http://', 'https://') : 'https://via.placeholder.com/300x400?text=Sem+Foto';
             
             return `
-                <a href="${profileLink}" target="_blank" class="card ${isPresident ? 'president' : ''}" title="Ver perfil de ${p.nome_parlamentar} no SAPL">
+                <a href="${profileLink}" target="_blank" class="${cardClasses}" title="Ver perfil de ${p.nome_parlamentar} no SAPL">
                     ${p.cargo ? `<span class="badge">${p.cargo}</span>` : ''}
                     <div class="photo-container">
                         <img src="${photoUrl}" alt="${p.nome_parlamentar}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x400?text=Sem+Foto'">
@@ -414,7 +483,6 @@
             `;
         }
 
-        // Inicia a busca ao carregar a página
         fetchData();
     </script>
 </body>
