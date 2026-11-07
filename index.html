@@ -35,6 +35,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         body {
@@ -55,12 +56,11 @@
             height: auto !important;
             margin: 0 !important;
             padding: 0 !important;
-            overflow: hidden !important;
         }
         html.is-embedded .container,
         body.is-embedded .container {
             max-width: 100% !important;
-            padding: 2px 4px 10px !important;
+            padding: 2px 4px 8px !important;
             margin: 0 auto !important;
         }
         html.hide-header header,
@@ -71,7 +71,7 @@
         .container {
             width: 100%;
             max-width: 1100px;
-            padding: 10px 15px 20px;
+            padding: 10px 15px 16px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -80,7 +80,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             width: 100%;
         }
 
@@ -93,13 +93,13 @@
             color: var(--primary-green);
             border-bottom: 3px solid var(--secondary-green);
             display: inline-block;
-            padding-bottom: 5px;
+            padding-bottom: 4px;
         }
 
         .section-title {
             width: 100%;
             text-align: center;
-            margin: 16px 0 12px;
+            margin: 14px 0 10px;
             font-size: 1.15rem;
             font-weight: 700;
             color: var(--secondary-green);
@@ -109,31 +109,31 @@
         .section-title::after {
             content: '';
             display: block;
-            width: 40px;
+            width: 38px;
             height: 2.5px;
             background: var(--accent-green);
-            margin: 5px auto 0;
+            margin: 4px auto 0;
             border-radius: 2px;
         }
 
-        /* GRID DA MESA DIRETORA */
+        /* GRID DA MESA DIRETORA (DESKTOP) */
         #mesa-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             width: 100%;
             margin-bottom: 4px;
         }
 
-        /* GRID DE DEMAIS VEREADORES */
+        /* GRID DE DEMAIS VEREADORES (DESKTOP) */
         .grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: stretch;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
         }
 
@@ -142,7 +142,7 @@
             background: #ffffff;
             border: 1px solid var(--glass-border);
             border-radius: 12px;
-            padding: 10px 8px 12px;
+            padding: 9px 7px 11px;
             text-align: center;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -152,14 +152,14 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 140px;
+            width: 138px;
             box-sizing: border-box;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 7px rgba(0,0,0,0.05);
         }
 
         .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
             border-color: var(--secondary-green);
         }
 
@@ -169,7 +169,7 @@
             aspect-ratio: 3 / 4;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border: 1.5px solid #e8ece6;
             background: #f4f6f3;
         }
@@ -186,12 +186,12 @@
         }
 
         .card h3 {
-            margin: 4px 0 2px;
+            margin: 3px 0 2px;
             font-size: 0.88rem;
             font-weight: 700;
             color: var(--primary-green);
-            line-height: 1.25;
-            min-height: 2.5em;
+            line-height: 1.2;
+            min-height: 2.4em;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -210,12 +210,12 @@
             top: -9px;
             background: var(--secondary-green);
             color: white;
-            padding: 3px 9px;
+            padding: 3px 8px;
             border-radius: 12px;
-            font-size: 0.65rem;
+            font-size: 0.64rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.3px;
             z-index: 2;
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
             white-space: nowrap;
@@ -230,28 +230,28 @@
             order: 3;
         }
 
-        /* DESTAQUE DO PRESIDENTE (NO MEIO E UM POUCO MAIOR) */
+        /* DESTAQUE DO PRESIDENTE (NO MEIO E MAIOR) */
         .card-presidente {
             order: 2;
-            width: 168px !important;
-            padding: 13px 10px 14px !important;
+            width: 165px !important;
+            padding: 12px 9px 13px !important;
             border: 2px solid var(--gold) !important;
             background: linear-gradient(to bottom, #ffffff, var(--gold-light)) !important;
-            box-shadow: 0 4px 16px rgba(184, 134, 11, 0.18) !important;
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.18) !important;
             z-index: 3;
         }
         
         .card-presidente:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 22px rgba(184, 134, 11, 0.25) !important;
+            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.25) !important;
         }
 
         .card-presidente .badge {
             background: var(--gold) !important;
-            font-size: 0.72rem !important;
-            padding: 4px 12px !important;
+            font-size: 0.70rem !important;
+            padding: 3px 11px !important;
             top: -10px !important;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
         }
 
         .card-presidente .photo-container {
@@ -259,7 +259,7 @@
         }
 
         .card-presidente h3 {
-            font-size: 0.95rem !important;
+            font-size: 0.94rem !important;
         }
 
         /* MENSAGEM DE CARREGAMENTO */
@@ -271,39 +271,107 @@
             font-weight: 600;
         }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 920px) and (min-width: 521px) {
+        /* RESPONSIVIDADE PARA TABLETS E DISPOSITIVOS MÉDIOS */
+        @media (max-width: 920px) and (min-width: 601px) {
             .grid {
                 max-width: 480px;
+                gap: 12px;
             }
         }
 
-        @media (max-width: 520px) {
-            h1 { font-size: 1.3rem; }
-            .section-title { font-size: 1.05rem; margin: 14px 0 10px; }
-            .grid { 
-                gap: 10px; 
-                max-width: 310px;
+        /* RESPONSIVIDADE COMPLETA PARA CELULARES (MOBILE <= 600px) */
+        @media (max-width: 600px) {
+            .container {
+                padding: 4px 6px 12px !important;
             }
-            .card { 
-                width: 140px; 
+            .section-title {
+                font-size: 0.95rem;
+                margin: 10px 0 8px;
             }
+            .section-title::after {
+                width: 30px;
+                height: 2px;
+                margin: 3px auto 0;
+            }
+
+            /* MESA DIRETORA NO CELULAR: 3 CARDS LADO A LADO */
             #mesa-grid {
-                flex-direction: column;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
                 align-items: center;
-                gap: 14px;
+                gap: 6px;
+                width: 100%;
+                margin-bottom: 2px;
             }
-            .card-presidente {
-                order: 1 !important;
-                width: 165px !important;
-            }
-            .card-vice {
-                order: 2 !important;
-                width: 140px !important;
-            }
+
+            .card-vice,
             .card-secretario {
-                order: 3 !important;
-                width: 140px !important;
+                width: calc((100% - 22px) / 3) !important;
+                max-width: 110px !important;
+                min-width: 88px !important;
+                padding: 6px 4px 8px !important;
+                border-radius: 9px !important;
+            }
+
+            /* PRESIDENTE NO CELULAR: NO MEIO, MAIOR COM DESTAQUE DOURADO */
+            .card-presidente {
+                order: 2 !important;
+                width: calc((100% - 22px) / 3 * 1.15) !important;
+                max-width: 124px !important;
+                min-width: 100px !important;
+                padding: 8px 5px 10px !important;
+                border-radius: 10px !important;
+            }
+
+            .card-presidente .badge {
+                font-size: 0.58rem !important;
+                padding: 2px 7px !important;
+                top: -8px !important;
+            }
+
+            .card-presidente h3 {
+                font-size: 0.78rem !important;
+            }
+
+            /* DEMAIS VEREADORES NO CELULAR: 3 POR LINHA (2 LINHAS DE 3) */
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+                width: 100%;
+                max-width: 345px;
+                margin: 0 auto;
+            }
+
+            .grid .card {
+                width: 100% !important;
+                max-width: 110px !important;
+                padding: 6px 4px 8px !important;
+                border-radius: 9px !important;
+            }
+
+            .photo-container {
+                border-radius: 6px;
+                margin-bottom: 4px;
+            }
+
+            .badge {
+                font-size: 0.52rem !important;
+                padding: 2px 6px !important;
+                top: -7px !important;
+                letter-spacing: 0.2px;
+            }
+
+            .card h3 {
+                font-size: 0.72rem !important;
+                line-height: 1.2;
+                margin: 2px 0 1px;
+                min-height: 2.4em;
+            }
+
+            .card p {
+                font-size: 0.65rem !important;
             }
         }
     </style>
