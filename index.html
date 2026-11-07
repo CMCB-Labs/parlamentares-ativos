@@ -6,10 +6,10 @@
     <title>Vereadores em Exercício - Câmara Municipal de Coronel Barros</title>
     
     <script>
-        if (window.self !== window.top || location.search.indexOf('embed=1') !== -1) {
+        if (window.self !== window.top || location.search.indexOf('embed=1') !== -1 || location.search.indexOf('embed=true') !== -1) {
             document.documentElement.classList.add('is-embedded');
         }
-        if (location.search.indexOf('hide_header=1') !== -1) {
+        if (location.search.indexOf('hide_header=1') !== -1 || location.search.indexOf('hide_header=true') !== -1) {
             document.documentElement.classList.add('hide-header');
         }
     </script>
@@ -48,7 +48,7 @@
             align-items: center;
         }
 
-        /* Embed Mode Overrides */
+        /* Embed Mode Overrides - Remove sobras quando embutido */
         html.is-embedded,
         html.is-embedded body,
         body.is-embedded {
@@ -62,7 +62,7 @@
         html.is-embedded .container,
         body.is-embedded .container {
             max-width: 100% !important;
-            padding: 2px 4px 10px !important;
+            padding: 4px 6px 14px !important;
             margin: 0 auto !important;
         }
         html.hide-header header,
@@ -101,8 +101,8 @@
         .section-title {
             width: 100%;
             text-align: center;
-            margin: 30px 0 18px;
-            font-size: 1.45rem;
+            margin: 25px 0 16px;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--secondary-green);
             position: relative;
@@ -328,6 +328,11 @@
         function notifyParentResize() {
             if (window.self === window.top) return;
 
+            // Só envia sinal de redimensionamento global se estiver em janela isolada ou se solicitado explicitamente
+            const urlParams = new URLSearchParams(window.location.search);
+            const allowResize = urlParams.get('auto_resize') === '1' || window.name === 'windowZ';
+            if (!allowResize) return;
+
             if (resizeTimer) clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 const container = document.getElementById('parlamentaresContainer') || document.body;
@@ -343,14 +348,6 @@
                     }, '*');
                 }
             }, 40);
-        }
-
-        if (window.ResizeObserver) {
-            try {
-                const ro = new ResizeObserver(() => notifyParentResize());
-                const el = document.getElementById('parlamentaresContainer') || document.body;
-                ro.observe(el);
-            } catch (e) {}
         }
 
         async function fetchAllPages(endpoint) {
