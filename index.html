@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vereadores em Exercício - Câmara Municipal de Coronel Barros</title>
-    
+    <title>Vereadores em Exercício - CMCB</title>
     <script>
         if (window.self !== window.top || location.search.indexOf('embed=1') !== -1 || location.search.indexOf('embed=true') !== -1) {
             document.documentElement.classList.add('is-embedded');
@@ -13,7 +12,6 @@
             document.documentElement.classList.add('hide-header');
         }
     </script>
-
     <style>
         :root {
             --primary-green: #325a1e; 
@@ -48,7 +46,7 @@
             align-items: center;
         }
 
-        /* Embed Mode Overrides - Remove sobras quando embutido */
+        /* Embed Mode Overrides */
         html.is-embedded,
         html.is-embedded body,
         body.is-embedded {
@@ -62,7 +60,7 @@
         html.is-embedded .container,
         body.is-embedded .container {
             max-width: 100% !important;
-            padding: 4px 6px 14px !important;
+            padding: 2px 4px 10px !important;
             margin: 0 auto !important;
         }
         html.hide-header header,
@@ -73,7 +71,7 @@
         .container {
             width: 100%;
             max-width: 1100px;
-            padding: 15px 20px 25px;
+            padding: 10px 15px 20px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -82,27 +80,27 @@
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 14px;
             width: 100%;
         }
 
         h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--primary-green);
             border-bottom: 3px solid var(--secondary-green);
             display: inline-block;
-            padding-bottom: 8px;
+            padding-bottom: 5px;
         }
 
         .section-title {
             width: 100%;
             text-align: center;
-            margin: 25px 0 16px;
-            font-size: 1.4rem;
+            margin: 16px 0 12px;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--secondary-green);
             position: relative;
@@ -111,10 +109,10 @@
         .section-title::after {
             content: '';
             display: block;
-            width: 50px;
-            height: 3px;
+            width: 40px;
+            height: 2.5px;
             background: var(--accent-green);
-            margin: 6px auto 0;
+            margin: 5px auto 0;
             border-radius: 2px;
         }
 
@@ -124,26 +122,27 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 22px;
+            gap: 16px;
             width: 100%;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         /* GRID DE DEMAIS VEREADORES */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 12px;
             width: 100%;
-            justify-items: center;
         }
 
         /* ESTILO DO CARD PADRÃO */
         .card {
             background: #ffffff;
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 16px 14px;
+            border-radius: 12px;
+            padding: 10px 8px 12px;
             text-align: center;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -153,14 +152,14 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 220px;
+            width: 140px;
             box-sizing: border-box;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
             border-color: var(--secondary-green);
         }
 
@@ -168,10 +167,10 @@
         .photo-container {
             width: 100%;
             aspect-ratio: 3 / 4;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 10px;
-            border: 2px solid #e8ece6;
+            margin-bottom: 8px;
+            border: 1.5px solid #e8ece6;
             background: #f4f6f3;
         }
 
@@ -179,7 +178,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: transform 0.35s ease;
         }
 
         .card:hover img {
@@ -187,16 +186,20 @@
         }
 
         .card h3 {
-            margin: 6px 0 3px;
-            font-size: 1.1rem;
+            margin: 4px 0 2px;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--primary-green);
-            line-height: 1.3;
+            line-height: 1.25;
+            min-height: 2.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card p {
             margin: 0;
-            font-size: 0.92rem;
+            font-size: 0.78rem;
             color: var(--text-muted);
             font-weight: 600;
         }
@@ -204,17 +207,18 @@
         /* SELO DE CARGO */
         .badge {
             position: absolute;
-            top: -10px;
+            top: -9px;
             background: var(--secondary-green);
             color: white;
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 0.72rem;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-size: 0.65rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             z-index: 2;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            white-space: nowrap;
         }
 
         /* ORDENAÇÃO NA MESA DIRETORA (DESKTOP) */
@@ -226,28 +230,28 @@
             order: 3;
         }
 
-        /* DESTAQUE DO PRESIDENTE (NO MEIO E MAIOR) */
+        /* DESTAQUE DO PRESIDENTE (NO MEIO E UM POUCO MAIOR) */
         .card-presidente {
             order: 2;
-            width: 255px !important;
-            padding: 22px 16px !important;
+            width: 168px !important;
+            padding: 13px 10px 14px !important;
             border: 2px solid var(--gold) !important;
             background: linear-gradient(to bottom, #ffffff, var(--gold-light)) !important;
-            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.18) !important;
+            box-shadow: 0 4px 16px rgba(184, 134, 11, 0.18) !important;
             z-index: 3;
         }
         
         .card-presidente:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 26px rgba(184, 134, 11, 0.25) !important;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(184, 134, 11, 0.25) !important;
         }
 
         .card-presidente .badge {
             background: var(--gold) !important;
-            font-size: 0.8rem !important;
-            padding: 5px 15px !important;
-            top: -11px !important;
-            letter-spacing: 0.8px;
+            font-size: 0.72rem !important;
+            padding: 4px 12px !important;
+            top: -10px !important;
+            letter-spacing: 0.6px;
         }
 
         .card-presidente .photo-container {
@@ -255,43 +259,51 @@
         }
 
         .card-presidente h3 {
-            font-size: 1.2rem !important;
+            font-size: 0.95rem !important;
         }
 
         /* MENSAGEM DE CARREGAMENTO */
         #loading {
             text-align: center;
-            padding: 60px 20px;
-            font-size: 1.1rem;
+            padding: 40px 20px;
+            font-size: 1rem;
             color: var(--secondary-green);
             font-weight: 600;
         }
 
-        /* RESPONSIVIDADE (MOBILE) */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
-            .grid { grid-template-columns: 1fr; }
-            .card { width: 100%; max-width: 280px; }
-            
+        /* RESPONSIVIDADE */
+        @media (max-width: 920px) and (min-width: 521px) {
+            .grid {
+                max-width: 480px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            h1 { font-size: 1.3rem; }
+            .section-title { font-size: 1.05rem; margin: 14px 0 10px; }
+            .grid { 
+                gap: 10px; 
+                max-width: 310px;
+            }
+            .card { 
+                width: 140px; 
+            }
             #mesa-grid {
                 flex-direction: column;
                 align-items: center;
-                gap: 18px;
+                gap: 14px;
             }
             .card-presidente {
                 order: 1 !important;
-                width: 100% !important;
-                max-width: 280px !important;
+                width: 165px !important;
             }
             .card-vice {
                 order: 2 !important;
-                width: 100% !important;
-                max-width: 270px !important;
+                width: 140px !important;
             }
             .card-secretario {
                 order: 3 !important;
-                width: 100% !important;
-                max-width: 270px !important;
+                width: 140px !important;
             }
         }
     </style>
@@ -328,7 +340,7 @@
         function notifyParentResize() {
             if (window.self === window.top) return;
 
-            // Só envia sinal de redimensionamento global se estiver em janela isolada ou se solicitado explicitamente
+            // Só envia sinal de redimensionamento global se solicitado explicitamente
             const urlParams = new URLSearchParams(window.location.search);
             const allowResize = urlParams.get('auto_resize') === '1' || window.name === 'windowZ';
             if (!allowResize) return;
