@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vereadores em Exercício - Câmara Municipal de Coronel Barros</title>
-    <!-- 
-        ESTILO DA PÁGINA (CSS)
-        Desenvolvido para uso direto ou embed (iframe).
-        Design moderno, paleta de cores oficial da Câmara Municipal de Coronel Barros/RS.
-    -->
+    
+    <script>
+        if (window.self !== window.top || location.search.indexOf('embed=1') !== -1) {
+            document.documentElement.classList.add('is-embedded');
+        }
+        if (location.search.indexOf('hide_header=1') !== -1) {
+            document.documentElement.classList.add('hide-header');
+        }
+    </script>
+
     <style>
         :root {
             --primary-green: #325a1e; 
@@ -22,23 +27,45 @@
             --gold-light: #fffdf2;
         }
 
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        body {
             font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: transparent;
             color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
 
         /* Embed Mode Overrides */
+        html.is-embedded,
+        html.is-embedded body,
         body.is-embedded {
-            min-height: auto !important;
+            background: transparent !important;
+            min-height: 0 !important;
             height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
         }
+        html.is-embedded .container,
+        body.is-embedded .container {
+            max-width: 100% !important;
+            padding: 2px 4px 10px !important;
+            margin: 0 auto !important;
+        }
+        html.hide-header header,
         body.hide-header header {
             display: none !important;
         }
@@ -46,7 +73,7 @@
         .container {
             width: 100%;
             max-width: 1100px;
-            padding: 15px 20px 30px;
+            padding: 15px 20px 25px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -74,8 +101,8 @@
         .section-title {
             width: 100%;
             text-align: center;
-            margin: 35px 0 20px;
-            font-size: 1.5rem;
+            margin: 30px 0 18px;
+            font-size: 1.45rem;
             font-weight: 700;
             color: var(--secondary-green);
             position: relative;
@@ -96,17 +123,17 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center; /* Alinha verticalmente ao centro para valorizar o card maior */
-            gap: 25px;
+            align-items: center;
+            gap: 22px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         /* GRID DE DEMAIS VEREADORES */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 22px;
             width: 100%;
             justify-items: center;
         }
@@ -116,7 +143,7 @@
             background: #ffffff;
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 18px 16px;
+            padding: 16px 14px;
             text-align: center;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -126,14 +153,14 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 230px;
+            width: 220px;
             box-sizing: border-box;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border-color: var(--secondary-green);
         }
 
@@ -143,7 +170,7 @@
             aspect-ratio: 3 / 4;
             border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border: 2px solid #e8ece6;
             background: #f4f6f3;
         }
@@ -156,12 +183,12 @@
         }
 
         .card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         .card h3 {
-            margin: 8px 0 4px;
-            font-size: 1.15rem;
+            margin: 6px 0 3px;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary-green);
             line-height: 1.3;
@@ -169,7 +196,7 @@
 
         .card p {
             margin: 0;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
             font-weight: 600;
         }
@@ -180,7 +207,7 @@
             top: -10px;
             background: var(--secondary-green);
             color: white;
-            padding: 5px 12px;
+            padding: 4px 12px;
             border-radius: 16px;
             font-size: 0.72rem;
             font-weight: 800;
@@ -191,7 +218,6 @@
         }
 
         /* ORDENAÇÃO NA MESA DIRETORA (DESKTOP) */
-        /* Ordem: 1. Vice-Presidente | 2. Presidente (NO MEIO) | 3. Secretário */
         .card-vice {
             order: 1;
         }
@@ -203,24 +229,24 @@
         /* DESTAQUE DO PRESIDENTE (NO MEIO E MAIOR) */
         .card-presidente {
             order: 2;
-            width: 265px !important;
-            padding: 24px 18px !important;
+            width: 255px !important;
+            padding: 22px 16px !important;
             border: 2px solid var(--gold) !important;
             background: linear-gradient(to bottom, #ffffff, var(--gold-light)) !important;
-            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.2) !important;
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.18) !important;
             z-index: 3;
         }
         
         .card-presidente:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 30px rgba(184, 134, 11, 0.28) !important;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 26px rgba(184, 134, 11, 0.25) !important;
         }
 
         .card-presidente .badge {
             background: var(--gold) !important;
-            font-size: 0.82rem !important;
-            padding: 6px 16px !important;
-            top: -12px !important;
+            font-size: 0.8rem !important;
+            padding: 5px 15px !important;
+            top: -11px !important;
             letter-spacing: 0.8px;
         }
 
@@ -229,13 +255,13 @@
         }
 
         .card-presidente h3 {
-            font-size: 1.25rem !important;
+            font-size: 1.2rem !important;
         }
 
         /* MENSAGEM DE CARREGAMENTO */
         #loading {
             text-align: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
             font-size: 1.1rem;
             color: var(--secondary-green);
             font-weight: 600;
@@ -247,32 +273,31 @@
             .grid { grid-template-columns: 1fr; }
             .card { width: 100%; max-width: 280px; }
             
-            /* No celular, a Mesa fica em coluna e o Presidente aparece PRIMEIRO */
             #mesa-grid {
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 18px;
             }
             .card-presidente {
-                order: 1 !important; /* Primeiro no mobile */
+                order: 1 !important;
                 width: 100% !important;
-                max-width: 290px !important;
+                max-width: 280px !important;
             }
             .card-vice {
-                order: 2 !important; /* Segundo no mobile */
+                order: 2 !important;
                 width: 100% !important;
-                max-width: 280px !important;
+                max-width: 270px !important;
             }
             .card-secretario {
-                order: 3 !important; /* Terceiro no mobile */
+                order: 3 !important;
                 width: 100% !important;
-                max-width: 280px !important;
+                max-width: 270px !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="parlamentaresContainer">
         <header>
             <h1>VEREADORES EM EXERCÍCIO</h1>
         </header>
@@ -291,42 +316,40 @@
     <script>
         const API_BASE = 'https://sapl.coronelbarros.rs.leg.br/api';
         
-        // Mapeamento de contingência para Mesa Diretora
         const MESA_CARGOS_FALLBACK = {
-            1: 'Presidente',      // Lucas Jair Wottrich
-            7: 'Vice-Presidente', // Cristiana dos Santos Arnt
-            2: 'Secretário(a)'    // César Becker
+            1: 'Presidente',
+            7: 'Vice-Presidente',
+            2: 'Secretário(a)'
         };
 
-        function checkEmbedMode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const isEmbed = urlParams.get('embed') === '1' || urlParams.get('embed') === 'true' || window.self !== window.top;
-            const isHideHeader = urlParams.get('hide_header') === '1' || urlParams.get('hide_header') === 'true';
-
-            if (isEmbed) {
-                document.body.classList.add('is-embedded');
-            }
-            if (isHideHeader) {
-                document.body.classList.add('hide-header');
-            }
-        }
+        let lastSentHeight = 0;
+        let resizeTimer = null;
 
         function notifyParentResize() {
-            if (window.self !== window.top) {
-                const height = Math.max(
-                    document.body.scrollHeight,
-                    document.documentElement.scrollHeight,
-                    document.body.offsetHeight,
-                    document.documentElement.offsetHeight
-                );
-                window.parent.postMessage({ type: 'sapl-resize', height: height }, '*');
-            }
+            if (window.self === window.top) return;
+
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const container = document.getElementById('parlamentaresContainer') || document.body;
+                const rect = container.getBoundingClientRect();
+                const exactHeight = Math.ceil(rect.height) + 6;
+
+                if (Math.abs(lastSentHeight - exactHeight) >= 3) {
+                    lastSentHeight = exactHeight;
+                    window.parent.postMessage({
+                        type: 'sapl-resize',
+                        frameId: 'parlamentares-ativos',
+                        height: exactHeight
+                    }, '*');
+                }
+            }, 40);
         }
 
         if (window.ResizeObserver) {
             try {
                 const ro = new ResizeObserver(() => notifyParentResize());
-                ro.observe(document.body);
+                const el = document.getElementById('parlamentaresContainer') || document.body;
+                ro.observe(el);
             } catch (e) {}
         }
 
@@ -346,24 +369,16 @@
             return results;
         }
 
-        // Identifica de forma segura o tipo de cargo sem colisão de substrings
         function getCargoType(cargo) {
             if (!cargo) return null;
             const norm = cargo.toLowerCase().trim();
-            if (norm.includes('vice')) {
-                return 'vice';
-            }
-            if (norm.includes('presidente')) {
-                return 'presidente';
-            }
-            if (norm.includes('secret')) {
-                return 'secretario';
-            }
+            if (norm.includes('vice')) return 'vice';
+            if (norm.includes('presidente')) return 'presidente';
+            if (norm.includes('secret')) return 'secretario';
             return null;
         }
 
         async function fetchData() {
-            checkEmbedMode();
             try {
                 const [parlamentares, filiacoes, partidos, compMesa, cargosMesa] = await Promise.all([
                     fetchAllPages('/parlamentares/parlamentar/?ativo=True'),
@@ -373,10 +388,8 @@
                     fetchAllPages('/parlamentares/cargomesa/').catch(() => [])
                 ]);
 
-                // Filtro estrito: apenas parlamentares ativos
                 const ativos = parlamentares.filter(p => p.ativo === true || p.ativo === 1 || p.ativo === 'True' || p.ativo === 'true');
 
-                // Mapeia cargos da Mesa Diretora de forma dinâmica
                 const cargosMap = { ...MESA_CARGOS_FALLBACK };
                 if (compMesa && compMesa.length > 0 && cargosMesa && cargosMesa.length > 0) {
                     compMesa.forEach(comp => {
@@ -421,14 +434,12 @@
                 };
             });
 
-            // 1. Identifica os membros da Mesa Diretora
             const pres = listaProcessada.find(p => p.cargoType === 'presidente');
             const vice = listaProcessada.find(p => p.cargoType === 'vice');
             const sec = listaProcessada.find(p => p.cargoType === 'secretario');
 
             const mesaIds = new Set();
 
-            // Adiciona na Mesa: Vice-Presidente, Presidente (no meio), Secretário
             if (vice) {
                 mesaGrid.innerHTML += createCard(vice, 'vice');
                 mesaIds.add(vice.id);
@@ -442,7 +453,6 @@
                 mesaIds.add(sec.id);
             }
 
-            // 2. Demais vereadores ativos (ordem alfabética)
             const demais = listaProcessada
                 .filter(p => !mesaIds.has(p.id))
                 .sort((a, b) => a.nome_parlamentar.localeCompare(b.nome_parlamentar, 'pt-BR'));
@@ -455,18 +465,13 @@
             document.getElementById('content').style.display = 'block';
 
             notifyParentResize();
-            setTimeout(notifyParentResize, 350);
         }
 
         function createCard(p, cargoType) {
             let cardClasses = 'card';
-            if (cargoType === 'presidente') {
-                cardClasses += ' card-presidente';
-            } else if (cargoType === 'vice') {
-                cardClasses += ' card-vice';
-            } else if (cargoType === 'secretario') {
-                cardClasses += ' card-secretario';
-            }
+            if (cargoType === 'presidente') cardClasses += ' card-presidente';
+            else if (cargoType === 'vice') cardClasses += ' card-vice';
+            else if (cargoType === 'secretario') cardClasses += ' card-secretario';
 
             const profileLink = `https://sapl.coronelbarros.rs.leg.br/parlamentar/${p.id}`;
             const photoUrl = p.fotografia ? p.fotografia.replace('http://', 'https://') : 'https://via.placeholder.com/300x400?text=Sem+Foto';
