@@ -408,16 +408,11 @@
         function notifyParentResize() {
             if (window.self === window.top) return;
 
-            // Só envia sinal de redimensionamento global se solicitado explicitamente
-            const urlParams = new URLSearchParams(window.location.search);
-            const allowResize = urlParams.get('auto_resize') === '1' || window.name === 'windowZ';
-            if (!allowResize) return;
-
             if (resizeTimer) clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 const container = document.getElementById('parlamentaresContainer') || document.body;
                 const rect = container.getBoundingClientRect();
-                const exactHeight = Math.ceil(rect.height) + 6;
+                const exactHeight = Math.ceil(rect.height) + 12;
 
                 if (Math.abs(lastSentHeight - exactHeight) >= 3) {
                     lastSentHeight = exactHeight;
