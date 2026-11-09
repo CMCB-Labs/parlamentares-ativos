@@ -2,8 +2,14 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vereadores em Exercício - CMCB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Vereadores em Exercício - Câmara Municipal de Coronel Barros</title>
+    
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <script>
         if (window.self !== window.top || location.search.indexOf('embed=1') !== -1 || location.search.indexOf('embed=true') !== -1) {
             document.documentElement.classList.add('is-embedded');
@@ -14,15 +20,34 @@
     </script>
     <style>
         :root {
-            --primary-green: #325a1e; 
-            --secondary-green: #5c854b;
-            --accent-green: #3ebb51;
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(0, 0, 0, 0.08);
-            --text-color: #1a1a1a; 
-            --text-muted: #555555;
-            --gold: #b8860b;
-            --gold-light: #fffdf2;
+            /* Identidade Visual Oficial da Câmara Municipal de Coronel Barros */
+            --primary: #006838;
+            --primary-dark: #004d2a;
+            --primary-light: #009739;
+            --gold: #FFCC00;
+            --gold-hover: #e6b800;
+            --gold-dark: #b8860b;
+            --gold-text: #4a3800;
+            --gold-bg: #fffdf5;
+            --gold-glow: rgba(255, 204, 0, 0.4);
+
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --border-hover: #009739;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --shadow-sm: 0 2px 6px rgba(0, 104, 56, 0.05);
+            --shadow-md: 0 4px 14px rgba(0, 104, 56, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 104, 56, 0.12);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -34,20 +59,22 @@
         html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
 
         body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Montserrat', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: transparent;
-            color: var(--text-color);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
-        /* Embed Mode Overrides */
+        /* Embed Mode Overrides (para iframes no portal Plone) */
         html.is-embedded,
         html.is-embedded body,
         body.is-embedded {
@@ -56,11 +83,12 @@
             height: auto !important;
             margin: 0 !important;
             padding: 0 !important;
+            overflow-y: hidden;
         }
         html.is-embedded .container,
         body.is-embedded .container {
             max-width: 100% !important;
-            padding: 2px 4px 8px !important;
+            padding: 2px 4px 10px !important;
             margin: 0 auto !important;
         }
         html.hide-header header,
@@ -71,80 +99,126 @@
         .container {
             width: 100%;
             max-width: 1100px;
-            padding: 10px 15px 16px;
+            padding: 12px 16px 24px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        /* Cabeçalho Principal */
         header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             width: 100%;
         }
 
         h1 {
             margin: 0;
-            font-size: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 1.55rem);
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: var(--primary-green);
-            border-bottom: 3px solid var(--secondary-green);
+            color: var(--primary-dark);
+            position: relative;
             display: inline-block;
-            padding-bottom: 4px;
+            padding-bottom: 8px;
         }
 
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 48px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* Títulos de Seção */
         .section-title {
             width: 100%;
             text-align: center;
-            margin: 14px 0 10px;
+            margin: 18px 0 14px;
             font-size: 1.15rem;
             font-weight: 700;
-            color: var(--secondary-green);
+            color: var(--primary-dark);
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 38px;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
             height: 2.5px;
-            background: var(--accent-green);
-            margin: 4px auto 0;
+            background: var(--gold);
             border-radius: 2px;
         }
 
-        /* GRID DA MESA DIRETORA (DESKTOP) */
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #f0f7f2;
+            color: var(--primary);
+            border: 1px solid #d1e7dd;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-left: 6px;
+        }
+
+        /* ==========================================================
+           GRID DA MESA DIRETORA (DESKTOP)
+           ========================================================== */
         #mesa-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            gap: 14px;
+            align-items: flex-end; /* Pódio: Presidente mais alto no centro */
+            gap: 16px;
             width: 100%;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            padding: 10px 0 4px;
         }
 
-        /* GRID DE DEMAIS VEREADORES (DESKTOP) */
+        /* ==========================================================
+           GRID DE DEMAIS VEREADORES (DESKTOP)
+           ========================================================== */
         .grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: stretch;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
+            padding-top: 4px;
         }
 
-        /* ESTILO DO CARD PADRÃO */
+        /* ==========================================================
+           ESTILO DO CARD PADRÃO
+           ========================================================== */
         .card {
-            background: #ffffff;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 9px 7px 11px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 10px 8px 12px;
             text-align: center;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition);
             cursor: pointer;
             text-decoration: none;
             color: inherit;
@@ -152,26 +226,27 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 138px;
+            width: 140px;
             box-sizing: border-box;
-            box-shadow: 0 2px 7px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
         }
 
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-            border-color: var(--secondary-green);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
         }
 
-        /* CONTAINER DA FOTO (PROPORÇÃO 3:4) */
+        /* Container da Foto (Proporção 3:4 Oficial) */
         .photo-container {
             width: 100%;
             aspect-ratio: 3 / 4;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             overflow: hidden;
-            margin-bottom: 6px;
-            border: 1.5px solid #e8ece6;
-            background: #f4f6f3;
+            margin-bottom: 8px;
+            border: 1.5px solid #edf2ea;
+            background: #f1f5f9;
+            position: relative;
         }
 
         .card img {
@@ -179,176 +254,249 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.35s ease;
+            display: block;
         }
 
         .card:hover img {
-            transform: scale(1.04);
+            transform: scale(1.05);
         }
 
         .card h3 {
-            margin: 3px 0 2px;
+            margin: 2px 0 4px;
             font-size: 0.88rem;
             font-weight: 700;
-            color: var(--primary-green);
-            line-height: 1.2;
-            min-height: 2.4em;
+            color: var(--primary-dark);
+            line-height: 1.25;
+            min-height: 2.5em;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
         }
 
-        .card p {
+        .card .partido {
             margin: 0;
-            font-size: 0.78rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.76rem;
             color: var(--text-muted);
             font-weight: 600;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
         }
 
-        /* SELO DE CARGO */
+        /* ==========================================================
+           SELOS DE CARGO (MESA DIRETORA)
+           ========================================================== */
         .badge {
             position: absolute;
-            top: -9px;
-            background: var(--secondary-green);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.64rem;
+            top: -10px;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.4px;
             z-index: 2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 6px rgba(0, 104, 56, 0.25);
             white-space: nowrap;
+            border: 1.5px solid #ffffff;
         }
 
-        /* ORDENAÇÃO NA MESA DIRETORA (DESKTOP) */
+        /* Ordenação e Tamanho dos Membros da Mesa */
         .card-vice {
             order: 1;
+            width: 155px;
+            background: #ffffff;
+            border-color: #cbd5e1;
         }
         
         .card-secretario {
             order: 3;
+            width: 155px;
+            background: #ffffff;
+            border-color: #cbd5e1;
         }
 
-        /* DESTAQUE DO PRESIDENTE (NO MEIO E MAIOR) */
+        .card-vice .badge,
+        .card-secretario .badge {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        /* ==========================================================
+           DESTAQUE MÁXIMO DO PRESIDENTE (NO MEIO, MAIOR, DOURADO NOBRE)
+           ========================================================== */
         .card-presidente {
             order: 2;
-            width: 165px !important;
-            padding: 12px 9px 13px !important;
+            width: 185px !important;
+            padding: 14px 10px 14px !important;
             border: 2px solid var(--gold) !important;
-            background: linear-gradient(to bottom, #ffffff, var(--gold-light)) !important;
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.18) !important;
+            border-radius: var(--radius-lg) !important;
+            background: linear-gradient(180deg, #ffffff 0%, var(--gold-bg) 100%) !important;
+            box-shadow: 0 6px 20px var(--gold-glow), var(--shadow-sm) !important;
             z-index: 3;
         }
         
         .card-presidente:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.25) !important;
+            transform: translateY(-6px);
+            box-shadow: 0 10px 28px rgba(255, 204, 0, 0.45), var(--shadow-md) !important;
+            border-color: var(--gold-hover) !important;
         }
 
         .card-presidente .badge {
-            background: var(--gold) !important;
-            font-size: 0.70rem !important;
-            padding: 3px 11px !important;
-            top: -10px !important;
-            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #FFCC00 0%, #e6b800 100%) !important;
+            color: var(--gold-text) !important;
+            font-size: 0.72rem !important;
+            font-weight: 900 !important;
+            padding: 4px 13px !important;
+            top: -11px !important;
+            letter-spacing: 0.6px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 3px 8px rgba(184, 134, 11, 0.35);
         }
 
         .card-presidente .photo-container {
-            border-color: var(--gold) !important;
+            border: 2px solid var(--gold) !important;
+            box-shadow: 0 2px 8px rgba(255, 204, 0, 0.2);
         }
 
         .card-presidente h3 {
-            font-size: 0.94rem !important;
+            font-size: 0.98rem !important;
+            font-weight: 800 !important;
+            color: var(--primary-dark) !important;
         }
 
-        /* MENSAGEM DE CARREGAMENTO */
+        .card-presidente .partido {
+            background: rgba(255, 204, 0, 0.2) !important;
+            color: var(--gold-text) !important;
+            font-weight: 700 !important;
+        }
+
+        /* Mensagem de Carregamento & Spinner */
         #loading {
             text-align: center;
-            padding: 40px 20px;
-            font-size: 1rem;
-            color: var(--secondary-green);
+            padding: 45px 20px;
+            font-size: 0.95rem;
+            color: var(--primary);
             font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* RESPONSIVIDADE PARA TABLETS E DISPOSITIVOS MÉDIOS */
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3.5px solid #d1e7dd;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ==========================================================
+           RESPONSIVIDADE: TABLETS (601px - 920px)
+           ========================================================== */
         @media (max-width: 920px) and (min-width: 601px) {
+            .card-vice,
+            .card-secretario {
+                width: 140px;
+            }
+            .card-presidente {
+                width: 168px !important;
+            }
             .grid {
-                max-width: 480px;
-                gap: 12px;
+                max-width: 520px;
+                gap: 10px;
+            }
+            .grid .card {
+                width: 135px;
             }
         }
 
-        /* RESPONSIVIDADE COMPLETA PARA CELULARES (MOBILE <= 600px) */
+        /* ==========================================================
+           RESPONSIVIDADE: CELULARES (MOBILE <= 600px)
+           ========================================================== */
         @media (max-width: 600px) {
             .container {
-                padding: 4px 6px 12px !important;
+                padding: 4px 6px 14px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            header {
+                margin-bottom: 10px;
+            }
+            h1 {
+                font-size: 1.15rem;
+                padding-bottom: 6px;
             }
             .section-title {
-                font-size: 0.95rem;
-                margin: 10px 0 8px;
+                font-size: 0.96rem;
+                margin: 12px 0 10px;
             }
             .section-title::after {
-                width: 30px;
+                width: 28px;
                 height: 2px;
-                margin: 3px auto 0;
+                bottom: -4px;
+            }
+            .section-badge {
+                font-size: 0.65rem;
+                padding: 2px 7px;
             }
 
-            /* MESA DIRETORA NO CELULAR: 3 CARDS LADO A LADO */
+            /* Mesa Diretora no celular: 3 cards lado a lado sem overflow horizontal */
             #mesa-grid {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
-                align-items: center;
+                align-items: flex-end;
                 gap: 6px;
                 width: 100%;
-                margin-bottom: 2px;
+                max-width: 380px;
+                margin: 0 auto 4px;
+                padding: 8px 2px 2px;
             }
 
             .card-vice,
             .card-secretario {
-                width: calc((100% - 22px) / 3) !important;
-                max-width: 110px !important;
-                min-width: 88px !important;
-                padding: 6px 4px 8px !important;
-                border-radius: 9px !important;
+                flex: 1;
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: 112px !important;
+                padding: 7px 4px 8px !important;
+                border-radius: var(--radius-sm) !important;
             }
 
-            /* PRESIDENTE NO CELULAR: NO MEIO, MAIOR COM DESTAQUE DOURADO */
+            /* Presidente no Celular: No meio, maior e mais imponente */
             .card-presidente {
                 order: 2 !important;
-                width: calc((100% - 22px) / 3 * 1.15) !important;
-                max-width: 124px !important;
-                min-width: 100px !important;
-                padding: 8px 5px 10px !important;
+                flex: 1.22;
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: 134px !important;
+                padding: 9px 5px 10px !important;
                 border-radius: 10px !important;
             }
 
-            .card-presidente .badge {
-                font-size: 0.58rem !important;
-                padding: 2px 7px !important;
+            .badge {
+                font-size: 0.54rem !important;
+                padding: 2px 6px !important;
                 top: -8px !important;
+                letter-spacing: 0.2px;
             }
 
-            .card-presidente h3 {
-                font-size: 0.78rem !important;
-            }
-
-            /* DEMAIS VEREADORES NO CELULAR: 3 POR LINHA (2 LINHAS DE 3) */
-            .grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-                width: 100%;
-                max-width: 345px;
-                margin: 0 auto;
-            }
-
-            .grid .card {
-                width: 100% !important;
-                max-width: 110px !important;
-                padding: 6px 4px 8px !important;
-                border-radius: 9px !important;
+            .card-presidente .badge {
+                font-size: 0.60rem !important;
+                padding: 3px 8px !important;
+                top: -9px !important;
             }
 
             .photo-container {
@@ -356,22 +504,37 @@
                 margin-bottom: 4px;
             }
 
-            .badge {
-                font-size: 0.52rem !important;
-                padding: 2px 6px !important;
-                top: -7px !important;
-                letter-spacing: 0.2px;
-            }
-
             .card h3 {
                 font-size: 0.72rem !important;
                 line-height: 1.2;
-                margin: 2px 0 1px;
+                margin: 2px 0 2px;
                 min-height: 2.4em;
             }
 
-            .card p {
+            .card-presidente h3 {
+                font-size: 0.78rem !important;
+            }
+
+            .card .partido {
                 font-size: 0.65rem !important;
+                padding: 1px 5px;
+            }
+
+            /* Demais Vereadores no celular: 3 por linha (2 linhas de 3) */
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+                width: 100%;
+                max-width: 380px;
+                margin: 0 auto;
+            }
+
+            .grid .card {
+                width: 100% !important;
+                min-width: 0 !important;
+                padding: 7px 4px 8px !important;
+                border-radius: var(--radius-sm) !important;
             }
         }
     </style>
@@ -379,13 +542,19 @@
 <body>
     <div class="container" id="parlamentaresContainer">
         <header>
-            <h1>VEREADORES EM EXERCÍCIO</h1>
+            <h1>Vereadores em Exercício</h1>
         </header>
 
-        <div id="loading">Conectando ao sistema SAPL...</div>
+        <div id="loading">
+            <div class="spinner"></div>
+            <span>Carregando dados oficiais do SAPL...</span>
+        </div>
         
         <div id="content" style="display: none; width: 100%;">
-            <div class="section-title">Mesa Diretora</div>
+            <div class="section-title">
+                Mesa Diretora
+                <span class="section-badge">Gestão Oficial</span>
+            </div>
             <div id="mesa-grid"></div>
 
             <div class="section-title">Demais Vereadores</div>
@@ -546,16 +715,16 @@
             else if (cargoType === 'secretario') cardClasses += ' card-secretario';
 
             const profileLink = `https://sapl.coronelbarros.rs.leg.br/parlamentar/${p.id}`;
-            const photoUrl = p.fotografia ? p.fotografia.replace('http://', 'https://') : 'https://via.placeholder.com/300x400?text=Sem+Foto';
+            const photoUrl = p.fotografia ? p.fotografia.replace('http://', 'https://') : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400" fill="%23e2e8f0"><rect width="100%" height="100%" fill="%23f1f5f9"/><circle cx="150" cy="140" r="60" fill="%23cbd5e1"/><path d="M70 340 C70 240, 230 240, 230 340 Z" fill="%23cbd5e1"/></svg>';
             
             return `
-                <a href="${profileLink}" target="_blank" class="${cardClasses}" title="Ver perfil de ${p.nome_parlamentar} no SAPL">
+                <a href="${profileLink}" target="_blank" rel="noopener noreferrer" class="${cardClasses}" title="Ver perfil de ${p.nome_parlamentar} no SAPL">
                     ${p.cargo ? `<span class="badge">${p.cargo}</span>` : ''}
                     <div class="photo-container">
-                        <img src="${photoUrl}" alt="${p.nome_parlamentar}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x400?text=Sem+Foto'">
+                        <img src="${photoUrl}" alt="${p.nome_parlamentar}" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22 viewBox=%220 0 300 400%22><rect width=%22100%%22 height=%22100%%22 fill=%22%23f1f5f9%22/><circle cx=%22150%22 cy=%22140%22 r=%2260%22 fill=%22%23cbd5e1%22/><path d=%22M70 340 C70 240, 230 240, 230 340 Z%22 fill=%22%23cbd5e1%22/></svg>'">
                     </div>
                     <h3>${p.nome_parlamentar}</h3>
-                    <p>${p.partidoSigla}</p>
+                    <span class="partido">${p.partidoSigla}</span>
                 </a>
             `;
         }
